@@ -1,10 +1,9 @@
 {
   "expo": {
-    "name": "react-native-hw-2",
-    "slug": "react-native-hw-2",
+    "name": "react-native-hw-4",
+    "slug": "react-native-hw-4",
     "version": "1.0.0",
-    "orientation": "default",
-
+    "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {

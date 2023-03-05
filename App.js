@@ -2,12 +2,12 @@ import React, { useCallback, useEffect, useState } from "react";
 import {} from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
-import LoginScreen from "./screens/auth/LoginScreen";
-import RegistrationScreen from "./screens/auth/RegistrationScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import { useRoute } from "./router";
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
-
+  const routing = useRoute({});
   useEffect(() => {
     async function prepare() {
       try {
@@ -35,11 +35,5 @@ export default function App() {
     return null;
   }
 
-  return (
-    <>
-      {/* <LoginScreen /> */}
-      <RegistrationScreen />
-    </>
-  );
+  return <NavigationContainer>{routing}</NavigationContainer>;
 }
-

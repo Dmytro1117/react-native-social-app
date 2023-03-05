@@ -17,7 +17,7 @@ const initialState = {
   email: "",
   password: "",
 };
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setstate] = useState(initialState);
 
@@ -98,6 +98,21 @@ export default function LoginScreen() {
               >
                 <Text style={styles.btnTitle}>Войти</Text>
               </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Register")}
+                style={{
+                  marginTop: 20,
+                  alignSelf: "center",
+                }}
+              >
+                <Text style={{ fontSize: 16, color: "#1B4371" }}>
+                  Нет аккаунта?
+                  <Text style={{ fontSize: 16, color: "#1B4371" }}>
+                    {" "}
+                    Зарегистрироваться
+                  </Text>
+                </Text>
+              </TouchableOpacity>
             </View>
           </KeyboardAvoidingView>
         </ImageBackground>
@@ -139,12 +154,12 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     backgroundColor: "#FF6C00",
     marginTop: 40,
-    marginBottom: 195,
+    // marginBottom: 195,
   },
   btnTitle: {
     color: Platform.OS === "ios" ? "#4169e1" : "#f0f8ff",
     fontSize: 18,
-    fontFamily: "TiltPrism-Regular",
+    fontFamily: "Gloock-Regular",
   },
   header: {
     alignItems: "center",
@@ -152,7 +167,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 30,
-    fontFamily: "TiltPrism-Regular",
+    fontFamily: "Gloock-Regular",
     marginTop: 16,
   },
 });

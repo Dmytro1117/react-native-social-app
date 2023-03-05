@@ -18,7 +18,7 @@ const initialState = {
   password: "",
   nickname: "",
 };
-export default function RegistrationScreen() {
+export default function RegistrationScreen({ navigation }) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setstate] = useState(initialState);
 
@@ -112,6 +112,18 @@ export default function RegistrationScreen() {
               >
                 <Text style={styles.btnTitle}>Зарегистрироваться</Text>
               </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Login")}
+                style={{
+                  marginTop: 20,
+                  alignSelf: "center",
+                }}
+              >
+                <Text style={{ fontSize: 16, color: "#1B4371" }}>
+                  Уже есть аккаунт?
+                  <Text style={{ fontSize: 16, color: "#1B4371" }}> Войти</Text>
+                </Text>
+              </TouchableOpacity>
             </View>
           </KeyboardAvoidingView>
         </ImageBackground>
@@ -153,7 +165,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     backgroundColor: "#FF6C00",
     marginTop: 40,
-    marginBottom: 113,
+    // marginBottom: 113,
   },
   btnTitle: {
     color: Platform.OS === "ios" ? "#4169e1" : "#f0f8ff",
