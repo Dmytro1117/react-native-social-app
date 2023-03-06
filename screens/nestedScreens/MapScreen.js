@@ -1,30 +1,63 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
+import MapView, { Marker } from "react-native-maps";
+import * as Location from "expo-location";
 
-export default function MapScreen({ navigation }) {
+const MapScreen = () => {
+  const [location, setLocation] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestPermissionsAsync();
+      if (status !== "granted") {
+        console.log("Permission to access location was denied");
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      const coords = {
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      };
+      setLocation(coords);
+    })();
+  }, []);
   return (
     <View style={styles.container}>
-      <Text>MapScreen</Text>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Home")}
-        style={{
-          marginTop: 20,
-          alignSelf: "center",
+      <MapView
+        style={styles.mapStyle}
+        region={{
+          latitude: 37.78825,
+          longitude: -122.4324,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
         }}
+        showsUserLocation={true}
+        mapType="standard"
+        minZoomLevel={5}
+        onMapReady={() => console.log("Map is ready")}
+        onRegionChange={() => console.log("Region change")}
       >
-        <Text style={{ fontSize: 16, color: "#1B4371" }}>
-          Не бажаєте відмітити геолокацію?
-          <Text style={{ fontSize: 16, color: "#1B4371" }}> Вийти з гео</Text>
-        </Text>
-      </TouchableOpacity>
+        <Marker
+          title="I am here"
+          coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
+          description="Hello"
+        />
+      </MapView>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    backgroundColor: "#fff",
     alignItems: "center",
+    justifyContent: "center",
+  },
+  mapStyle: {
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
   },
 });
+
+export default MapScreen;

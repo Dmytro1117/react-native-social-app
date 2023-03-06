@@ -1,40 +1,60 @@
-import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+  Image,
+} from "react-native";
 
-export default function Home({ navigation }) {
+export default function Home({ route, navigation }) {
+  const [posts, setPosts] = useState([]);
+  //  console.log("route.params", route.params);
+
+  useEffect(() => {
+    if (route.params) {
+      setPosts((prevState) => [...prevState, route.params]);
+    }
+  }, [route.params]);
+  // console.log("posts", posts);
   return (
     <View style={styles.container}>
-      <Text>Home</Text>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("CommentsScreen")}
-        style={{
-          marginTop: 20,
-          alignSelf: "center",
-        }}
-      >
-        <Text style={{ fontSize: 16, color: "#1B4371" }}>
-          Желаете оставить коментарий?
-          <Text style={{ fontSize: 16, color: "#1B4371" }}>
-            {" "}
-            Оставить комент{" "}
-          </Text>
-        </Text>
-      </TouchableOpacity>
-      <Text style={{ fontSize: 16, color: "#1B4371", margin: 20 }}>
-        Можете оставить GPS координати:
-      </Text>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("MapScreen")}
-        style={{
-          marginTop: 20,
-          alignSelf: "center",
-        }}
-      >
-        <Text style={{ fontSize: 16, color: "#1B4371" }}>
-          Желаете отметить геолокацию?
-          <Text style={{ fontSize: 16, color: "#1B4371" }}> Гео</Text>
-        </Text>
-      </TouchableOpacity>
+      <FlatList
+        data={posts}
+        keyExtractor={(item, indx) => indx.toString()}
+        renderItem={({ item }) => (
+          <View
+            style={{
+              marginBottom: 10,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Image source={{ uri: item }} style={{ width: 350, height: 200 }} />
+            <TouchableOpacity
+              onPress={() => navigation.navigate("CommentsScreen")}
+              style={{ alignSelf: "center" }}
+            >
+              <Text style={{ fontSize: 16, color: "#1B4371" }}>
+                Оставить коментарий
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => navigation.navigate("MapScreen")}
+              style={{
+                marginTop: 5,
+                alignSelf: "center",
+              }}
+            >
+              <Text style={{ fontSize: 16, color: "#1B4371" }}>
+                Отметить геолокацию
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      />
     </View>
   );
 }

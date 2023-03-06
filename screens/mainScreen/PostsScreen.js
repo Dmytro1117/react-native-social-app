@@ -7,7 +7,7 @@ import { Feather } from "@expo/vector-icons";
 
 const NestedScreen = createStackNavigator();
 
-export default function PostsScreen({ route }) {
+export default function PostsScreen() {
   return (
     <NestedScreen.Navigator
       initialRouteName="Home"
@@ -23,7 +23,7 @@ export default function PostsScreen({ route }) {
           headerTitleAlign: "center",
           title: "Публикации",
           headerTitleStyle: {
-            fontFamily: "Roboto",
+            fontFamily: "TiltPrism-Regular",
             fontStyle: "normal",
             fontWeight: "600",
             fontSize: 17,
@@ -35,7 +35,6 @@ export default function PostsScreen({ route }) {
           ),
         }}
       />
-
       <NestedScreen.Screen
         name="CommentsScreen"
         component={CommentsScreen}
@@ -43,7 +42,7 @@ export default function PostsScreen({ route }) {
           headerTitleAlign: "center",
           title: "Комментарии",
           headerTitleStyle: {
-            fontFamily: "Roboto",
+            fontFamily: "TiltPrism-Regular",
             fontStyle: "normal",
             fontWeight: "600",
             fontSize: 17,
@@ -52,7 +51,6 @@ export default function PostsScreen({ route }) {
           },
         }}
       />
-
       <NestedScreen.Screen
         name="MapScreen"
         component={MapScreen}
@@ -60,7 +58,7 @@ export default function PostsScreen({ route }) {
           headerTitleAlign: "center",
           title: "Местность...",
           headerTitleStyle: {
-            fontFamily: "Roboto",
+            fontFamily: "TiltPrism-Regular",
             fontStyle: "normal",
             fontWeight: "600",
             fontSize: 17,

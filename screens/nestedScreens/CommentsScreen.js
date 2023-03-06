@@ -12,13 +12,7 @@ export default function CommentsScreen({ navigation }) {
           alignSelf: "center",
         }}
       >
-        <Text style={{ fontSize: 16, color: "#1B4371" }}>
-          Не бажаєте лишити коментар?
-          <Text style={{ fontSize: 16, color: "#1B4371" }}>
-            {" "}
-            Вийти з комента
-          </Text>
-        </Text>
+        <Text style={{ fontSize: 16, color: "#1B4371" }}>Отменить</Text>
       </TouchableOpacity>
     </View>
   );

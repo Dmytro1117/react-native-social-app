@@ -7,7 +7,7 @@ import PostsScreen from "./screens/mainScreen/PostsScreen";
 import CreateScreen from "./screens/mainScreen/CreateScreen";
 import ProfileScreen from "./screens/mainScreen/ProfileScreen";
 import { Feather, AntDesign } from "@expo/vector-icons";
-import { View, TouchableOpacity } from "react-native";
+import { View } from "react-native";
 const AuthStack = createStackNavigator();
 const MainTab = createMaterialBottomTabNavigator();
 
@@ -46,10 +46,13 @@ export const useRoute = (isAuth) => {
         name="Posts"
         component={PostsScreen}
       />
+
       <MainTab.Screen
         options={{
-          tabBarIcon: ({ focused, size, color }) => (
-            <AntDesign name="plus" size={24} color="#616161" />
+          headerShown: false,
+          tabBarStyle: { display: "none" },
+          tabBarIcon: (focused, size, color) => (
+            <AntDesign name="plus" size={18} color="#fff" />
           ),
         }}
         name="Create"
