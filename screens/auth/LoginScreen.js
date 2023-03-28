@@ -57,7 +57,7 @@ export default function LoginScreen() {
             <View
               style={{
                 ...styles.form,
-                marginBottom: isShowKeyboard ? -210 : 0,
+                marginBottom: isShowKeyboard ? -150 : 0,
                 width: dimensions,
               }}
             >
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 6,
     backgroundColor: "#F6F6F6",
-    color: "#f0f8ff",
+    color: "#212121",
   },
   form: {
     backgroundColor: "#fff",
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     backgroundColor: "#FF6C00",
     marginTop: 40,
-    marginBottom: 195,
+    // marginBottom: 195,
   },
   btnTitle: {
     color: Platform.OS === "ios" ? "#4169e1" : "#f0f8ff",

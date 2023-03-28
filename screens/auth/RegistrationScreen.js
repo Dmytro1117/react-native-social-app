@@ -58,7 +58,7 @@ export default function RegistrationScreen() {
             <View
               style={{
                 ...styles.form,
-                marginBottom: isShowKeyboard ? -170 : 0,
+                marginBottom: isShowKeyboard ? -105 : 0,
                 width: dimensions,
               }}
             >
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 6,
     backgroundColor: "#F6F6F6",
-    color: "#f0f8ff",
+    color: "#212121",
   },
   form: {
     backgroundColor: "#fff",
