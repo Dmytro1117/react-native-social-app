@@ -25,7 +25,7 @@ export default function RegistrationScreen({ navigation }) {
   const keyboardHide = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
-    console.log(state);
+    // console.log(state);
     setstate(initialState);
   };
 
@@ -72,7 +72,7 @@ export default function RegistrationScreen({ navigation }) {
                   placeholderTextColor="#BDBDBD"
                   textAlign={"center"}
                   onFocus={() => setIsShowKeyboard(true)}
-                  value={state.email}
+                  value={state.nickname}
                   onChangeText={(value) =>
                     setstate((prevState) => ({ ...prevState, nickname: value }))
                   }
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 6,
     backgroundColor: "#F6F6F6",
-    color: "#f0f8ff",
+    color: "#212121",
   },
   form: {
     backgroundColor: "#fff",

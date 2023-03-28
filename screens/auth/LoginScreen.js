@@ -108,7 +108,6 @@ export default function LoginScreen({ navigation }) {
                 <Text style={{ fontSize: 16, color: "#1B4371" }}>
                   Нет аккаунта?
                   <Text style={{ fontSize: 16, color: "#1B4371" }}>
-                    {" "}
                     Зарегистрироваться
                   </Text>
                 </Text>
@@ -137,7 +136,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 6,
     backgroundColor: "#F6F6F6",
-    color: "#f0f8ff",
+    color: "#212121",
   },
   form: {
     backgroundColor: "#fff",
