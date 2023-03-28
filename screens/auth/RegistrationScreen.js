@@ -72,7 +72,7 @@ export default function RegistrationScreen() {
                   placeholderTextColor="#BDBDBD"
                   textAlign={"center"}
                   onFocus={() => setIsShowKeyboard(true)}
-                  value={state.email}
+                  value={state.nickname}
                   onChangeText={(value) =>
                     setstate((prevState) => ({ ...prevState, nickname: value }))
                   }
@@ -101,7 +101,7 @@ export default function RegistrationScreen() {
                   onFocus={() => setIsShowKeyboard(true)}
                   value={state.password}
                   onChangeText={(value) =>
-                    setstate((prevState) => ({ ...prevState, email: value }))
+                    setstate((prevState) => ({ ...prevState, password: value }))
                   }
                 />
               </View>

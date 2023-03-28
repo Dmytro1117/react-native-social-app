@@ -4,7 +4,7 @@ import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
 import LoginScreen from "./screens/auth/LoginScreen";
 import RegistrationScreen from "./screens/auth/RegistrationScreen";
-import { View } from "react-native";
+// import { View } from "react-native";
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -12,14 +12,14 @@ export default function App() {
   useEffect(() => {
     async function prepare() {
       try {
-        const fontsLoaded = Font.loadAsync({
-          "TiltPrism-Regular":
-            "https://rsms.me/inter/font-files/Inter-SemiBoldItalic.otf?v=3.12",
-        });
-
         // const fontsLoaded = Font.loadAsync({
-        //   "TiltPrism-Regular": require("./fonts/TiltPrism-Regular-VariableFont_XROT,YROT.ttf"),
+        //   "TiltPrism-Regular":
+        //     "https://rsms.me/inter/font-files/Inter-SemiBoldItalic.otf?v=3.12",
         // });
+
+        const fontsLoaded = Font.loadAsync({
+          "TiltPrism-Regular": require("./fonts/TiltPrism-Regular-VariableFont_XROT,YROT.ttf"),
+        });
 
         await fontsLoaded;
       } catch (e) {
@@ -41,11 +41,13 @@ export default function App() {
   if (!appIsReady) {
     return null;
   }
-
+  // console.log("rrrrrrrr");
   return (
-    <View onLayout={onLayoutRootView}>
-      {/* <LoginScreen /> */}
-      <RegistrationScreen />
-    </View>
+    <>
+      {/* <View onLayout={onLayoutRootView}> */}
+      <LoginScreen />
+      {/* <RegistrationScreen /> */}
+      {/* </View> */}
+    </>
   );
 }
