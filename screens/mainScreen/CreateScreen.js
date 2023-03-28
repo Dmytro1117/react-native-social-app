@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 
 const CreateScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>CreateScreen</Text>
+      <Text style={{ fontFamily: "TiltPrism-Regular" }}>CreateScreen</Text>
     </View>
   );
 };

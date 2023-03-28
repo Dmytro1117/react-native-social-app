@@ -12,8 +12,12 @@ export default function App() {
     async function prepare() {
       try {
         const fontsLoaded = Font.loadAsync({
-          "TiltPrism-Regular": require("./fonts/TiltPrism-Regular-VariableFont_XROT,YROT.ttf"),
+          "TiltPrism-Regular":
+            "https://rsms.me/inter/font-files/Inter-SemiBoldItalic.otf?v=3.12",
         });
+        // const fontsLoaded = Font.loadAsync({
+        //   "TiltPrism-Regular": require("./fonts/TiltPrism-Regular-VariableFont_XROT,YROT.ttf"),
+        // });
         await fontsLoaded;
       } catch (e) {
         console.log("fonts did not load", e.message);

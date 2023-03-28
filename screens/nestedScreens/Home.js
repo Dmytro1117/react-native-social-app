@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 export default function Home({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text>Home</Text>
+      <Text style={{ fontFamily: "TiltPrism-Regular" }}>Home</Text>
       <TouchableOpacity
         onPress={() => navigation.navigate("CommentsScreen")}
         style={{
@@ -12,15 +12,34 @@ export default function Home({ navigation }) {
           alignSelf: "center",
         }}
       >
-        <Text style={{ fontSize: 16, color: "#1B4371" }}>
+        <Text
+          style={{
+            fontFamily: "TiltPrism-Regular",
+            fontSize: 16,
+            color: "#1B4371",
+          }}
+        >
           Желаете оставить коментарий?
-          <Text style={{ fontSize: 16, color: "#1B4371" }}>
+          <Text
+            style={{
+              fontFamily: "TiltPrism-Regular",
+              fontSize: 16,
+              color: "#1B4371",
+            }}
+          >
             {" "}
             Оставить комент{" "}
           </Text>
         </Text>
       </TouchableOpacity>
-      <Text style={{ fontSize: 16, color: "#1B4371", margin: 20 }}>
+      <Text
+        style={{
+          fontFamily: "TiltPrism-Regular",
+          fontSize: 16,
+          color: "#1B4371",
+          margin: 20,
+        }}
+      >
         Можете оставить GPS координати:
       </Text>
       <TouchableOpacity
@@ -30,9 +49,24 @@ export default function Home({ navigation }) {
           alignSelf: "center",
         }}
       >
-        <Text style={{ fontSize: 16, color: "#1B4371" }}>
+        <Text
+          style={{
+            fontFamily: "TiltPrism-Regular",
+            fontSize: 16,
+            color: "#1B4371",
+          }}
+        >
           Желаете отметить геолокацию?
-          <Text style={{ fontSize: 16, color: "#1B4371" }}> Гео</Text>
+          <Text
+            style={{
+              fontFamily: "TiltPrism-Regular",
+              fontSize: 16,
+              color: "#1B4371",
+            }}
+          >
+            {" "}
+            Гео
+          </Text>
         </Text>
       </TouchableOpacity>
     </View>

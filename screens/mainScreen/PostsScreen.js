@@ -23,7 +23,7 @@ export default function PostsScreen({ route }) {
           headerTitleAlign: "center",
           title: "Публикации",
           headerTitleStyle: {
-            fontFamily: "Roboto",
+            fontFamily: "TiltPrism-Regular",
             fontStyle: "normal",
             fontWeight: "600",
             fontSize: 17,
@@ -43,7 +43,7 @@ export default function PostsScreen({ route }) {
           headerTitleAlign: "center",
           title: "Комментарии",
           headerTitleStyle: {
-            fontFamily: "Roboto",
+            fontFamily: "TiltPrism-Regular",
             fontStyle: "normal",
             fontWeight: "600",
             fontSize: 17,
@@ -60,7 +60,7 @@ export default function PostsScreen({ route }) {
           headerTitleAlign: "center",
           title: "Местность...",
           headerTitleStyle: {
-            fontFamily: "Roboto",
+            fontFamily: "TiltPrism-Regular",
             fontStyle: "normal",
             fontWeight: "600",
             fontSize: 17,

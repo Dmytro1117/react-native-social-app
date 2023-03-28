@@ -57,7 +57,7 @@ export default function LoginScreen({ navigation }) {
             <View
               style={{
                 ...styles.form,
-                marginBottom: isShowKeyboard ? -210 : 0,
+                marginBottom: isShowKeyboard ? -150 : 0,
                 width: dimensions,
               }}
             >
@@ -87,7 +87,7 @@ export default function LoginScreen({ navigation }) {
                   onFocus={() => setIsShowKeyboard(true)}
                   value={state.password}
                   onChangeText={(value) =>
-                    setstate((prevState) => ({ ...prevState, email: value }))
+                    setstate((prevState) => ({ ...prevState, password: value }))
                   }
                 />
               </View>
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
   btnTitle: {
     color: Platform.OS === "ios" ? "#4169e1" : "#f0f8ff",
     fontSize: 18,
-    fontFamily: "Gloock-Regular",
+    fontFamily: "TiltPrism-Regular",
   },
   header: {
     alignItems: "center",
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 30,
-    fontFamily: "Gloock-Regular",
+    fontFamily: "TiltPrism-Regular",
     marginTop: 16,
   },
 });

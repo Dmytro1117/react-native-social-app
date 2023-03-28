@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 export default function CommentsScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text>CommentsScreen</Text>
+      <Text style={{ fontFamily: "TiltPrism-Regular" }}>CommentsScreen</Text>
       <TouchableOpacity
         onPress={() => navigation.navigate("Home")}
         style={{
@@ -12,9 +12,21 @@ export default function CommentsScreen({ navigation }) {
           alignSelf: "center",
         }}
       >
-        <Text style={{ fontSize: 16, color: "#1B4371" }}>
+        <Text
+          style={{
+            fontFamily: "TiltPrism-Regular",
+            fontSize: 16,
+            color: "#1B4371",
+          }}
+        >
           Не бажаєте лишити коментар?
-          <Text style={{ fontSize: 16, color: "#1B4371" }}>
+          <Text
+            style={{
+              fontFamily: "TiltPrism-Regular",
+              fontSize: 16,
+              color: "#1B4371",
+            }}
+          >
             {" "}
             Вийти з комента
           </Text>

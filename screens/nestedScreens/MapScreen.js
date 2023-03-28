@@ -4,7 +4,7 @@ import React from "react";
 export default function MapScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text>MapScreen</Text>
+      <Text style={{ fontFamily: "TiltPrism-Regular" }}>MapScreen</Text>
       <TouchableOpacity
         onPress={() => navigation.navigate("Home")}
         style={{
@@ -12,9 +12,24 @@ export default function MapScreen({ navigation }) {
           alignSelf: "center",
         }}
       >
-        <Text style={{ fontSize: 16, color: "#1B4371" }}>
+        <Text
+          style={{
+            fontFamily: "TiltPrism-Regular",
+            fontSize: 16,
+            color: "#1B4371",
+          }}
+        >
           Не бажаєте відмітити геолокацію?
-          <Text style={{ fontSize: 16, color: "#1B4371" }}> Вийти з гео</Text>
+          <Text
+            style={{
+              fontFamily: "TiltPrism-Regular",
+              fontSize: 16,
+              color: "#1B4371",
+            }}
+          >
+            {" "}
+            Вийти з гео
+          </Text>
         </Text>
       </TouchableOpacity>
     </View>
