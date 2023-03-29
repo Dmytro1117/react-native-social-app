@@ -1,51 +1,59 @@
-import db from "../../firebase/config";
-// import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-// import { auth } from "../../firebase/config";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+  signOut,
+} from "firebase/auth";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { auth } from "../../firebase/config";
 
-export const authSignUpUser =
-  ({ email, password, nickname }) =>
-  async (dispatch, getSatte) => {
-    console.log("email, password, nickname", email, password, nickname);
-
-    // =================================================
+export const authSignUpUser = createAsyncThunk(
+  "auth/signUp",
+  async (credentials, thunkAPI) => {
     try {
-      const user = await db
-        .auth()
-        .createUserWithEmailAndPassword(email, password);
-      console.log("user", user);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        credentials.email,
+        credentials.password
+      );
+
+      await updateProfile(auth.currentUser, {
+        displayName: credentials.name,
+      });
+
+      const userUpdateSucces = await auth.currentUser;
+      return userUpdateSucces;
     } catch (error) {
-      console.log("error", error);
-      console.log("error.message", error.message);
+      return thunkAPI.rejectWithValue(error.message);
     }
+  }
+);
 
-    // ==============================================
+export const authSignInUser = createAsyncThunk(
+  "auth/signIn",
+  async (credentials, thunkAPI) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        credentials.email,
+        credentials.password
+      );
 
-    //       export const authSignUpUser = () => {
-    //   auth
-    //     .createUserWithEmailAndPassword(email, password)
-    //     .then((userCredential) => {
-    //       const user = userCredential.user;
-    //     })
-    //     .catch((error) => {
-    //       const errorCode = error.code;
-    //       const errorMessage = error.message;
-    //     });
+      const userUpdateSucces = await auth.currentUser;
+      return userUpdateSucces;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
 
-    //   ================================================
-
-    // const auth = getAuth();
-    // createUserWithEmailAndPassword(auth, email, password)
-    //   .then((userCredential) => {
-    //     const user = userCredential.user;
-    //   })
-    //   .catch((error) => {
-    //     const errorCode = error.code;
-    //     const errorMessage = error.message;
-    //   });
-
-    //   ===============================================
-  };
-
-export const authSignInUser = () => async (dispatch, getSatte) => {};
-
-export const authSignOutUser = () => async (dispatch, getSatte) => {};
+export const authSignOutUser = createAsyncThunk(
+  "auth/signOut",
+  async (_, thunkAPI) => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

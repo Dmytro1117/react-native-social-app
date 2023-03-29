@@ -1,7 +1,15 @@
-import * as firebase from "firebase";
-import "firebase/auth";
+import { initializeApp } from "firebase/app";
+import { getStorage } from "firebase/storage";
+import { getFirestore } from "firebase/firestore";
+// import { firebaseConfig } from "./firebaseConfig";
 
-const firebaseConfig = {
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  initializeAuth,
+  getReactNativePersistence,
+} from "firebase/auth/react-native";
+
+export const app = initializeApp({
   apiKey: "AIzaSyAxVUNQSbGMW-l0JjK6suI1wKAzJSgqoKg",
   authDomain: "react-native-social-2cec7.firebaseapp.com",
   projectId: "react-native-social-2cec7",
@@ -9,20 +17,11 @@ const firebaseConfig = {
   messagingSenderId: "350208950785",
   appId: "1:350208950785:web:0a58a7795973a370f7b600",
   measurementId: "G-C8V43H37KP",
-};
+});
+export const storageFirebase = getStorage();
+export const db = getFirestore(app);
 
-export default firebase.initializeApp(firebaseConfig);
-
-// ======================================
-
-// let app;
-// if (firebase.app.length === 0) {
-//   app = firebase.initializeApp(firebaseConfig);
-// } else {
-//   app = firebase.app();
-// }
-
-// const auth = firebase.auth();
-// export { auth };
-
-// ==========================================
+// initialize auth
+export const auth = initializeAuth(app, {
+  persistence: getReactNativePersistence(AsyncStorage),
+});

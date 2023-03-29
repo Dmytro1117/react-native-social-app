@@ -1,40 +1,37 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import Home from "../nestedScreens/Home";
+
+import DefaultPostsScreen from "../nestedScreens/DefaultPostsScreen";
 import MapScreen from "../nestedScreens/MapScreen";
 import CommentsScreen from "../nestedScreens/CommentsScreen";
-import { Feather } from "@expo/vector-icons";
 
 const NestedScreen = createStackNavigator();
 
 export default function PostsScreen() {
   return (
     <NestedScreen.Navigator
-      initialRouteName="Home"
       screenOptions={{
         gestureEnabled: true,
         gestureDirection: "horizontal",
       }}
     >
       <NestedScreen.Screen
-        name="Home"
-        component={Home}
+        name="DefaultPostsScreen"
+        component={DefaultPostsScreen}
         options={{
           headerTitleAlign: "center",
           title: "Публикации",
           headerTitleStyle: {
-            fontFamily: "TiltPrism-Regular",
+            fontFamily: "Roboto",
             fontStyle: "normal",
             fontWeight: "600",
             fontSize: 17,
             lineHeight: 22,
             color: "#212121",
           },
-          headerRight: () => (
-            <Feather name="log-out" size={24} color="#BDBDBD" />
-          ),
         }}
       />
+
       <NestedScreen.Screen
         name="CommentsScreen"
         component={CommentsScreen}
@@ -42,7 +39,7 @@ export default function PostsScreen() {
           headerTitleAlign: "center",
           title: "Комментарии",
           headerTitleStyle: {
-            fontFamily: "TiltPrism-Regular",
+            fontFamily: "Roboto",
             fontStyle: "normal",
             fontWeight: "600",
             fontSize: 17,
@@ -51,14 +48,15 @@ export default function PostsScreen() {
           },
         }}
       />
+
       <NestedScreen.Screen
         name="MapScreen"
         component={MapScreen}
         options={{
           headerTitleAlign: "center",
-          title: "Местность...",
+          title: "Геолокация",
           headerTitleStyle: {
-            fontFamily: "TiltPrism-Regular",
+            fontFamily: "Roboto",
             fontStyle: "normal",
             fontWeight: "600",
             fontSize: 17,

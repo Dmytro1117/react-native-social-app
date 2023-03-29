@@ -1,41 +1,42 @@
-import React, { useCallback, useEffect, useState } from "react";
-import {} from "react-native";
-import * as SplashScreen from "expo-splash-screen";
+import React, { useState } from "react";
+import { useEffect } from "react";
+
 import * as Font from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+
 import { Provider } from "react-redux";
-import { NavigationContainer } from "@react-navigation/native";
-import { useRoute } from "./router";
 import { store } from "./redux/store";
 
+import Main from "./components/Main";
+import Loader from "./components/Loader";
+
+
+SplashScreen.preventAutoHideAsync();
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
-  const routing = useRoute(false);
-  useEffect(() => {
-    async function prepare() {
-      try {
-        const fontsLoaded = Font.loadAsync({
-          "TiltPrism-Regular":
-            "https://rsms.me/inter/font-files/Inter-SemiBoldItalic.otf?v=3.12",
-        });
-        // const fontsLoaded = Font.loadAsync({
-        //   "TiltPrism-Regular": require("./fonts/TiltPrism-Regular-VariableFont_XROT,YROT.ttf"),
-        // });
-        await fontsLoaded;
-      } catch (e) {
-        console.log("fonts did not load", e.message);
-      } finally {
-        setAppIsReady(true);
-      }
-    }
 
-    prepare();
+  useEffect(() => {
+    prepareFonts();
   }, []);
 
-  const onLayoutRootView = useCallback(async () => {
+  useEffect(() => {
     if (appIsReady) {
-      await SplashScreen.hideAsync();
+      SplashScreen.hideAsync();
     }
   }, [appIsReady]);
+
+  const prepareFonts = async () => {
+    try {
+      await Font.loadAsync({
+        "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
+        "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
+      });
+      setAppIsReady(true);
+    } catch (e) {
+      console.log("fonts did not load", e.message);
+      setAppIsReady(false);
+    }
+  };
 
   if (!appIsReady) {
     return null;
@@ -43,7 +44,8 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <NavigationContainer>{routing}</NavigationContainer>
+      <Main />
+      <Loader/>
     </Provider>
   );
 }
