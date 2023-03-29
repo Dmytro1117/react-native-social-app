@@ -12,6 +12,8 @@ import {
   TouchableWithoutFeedback,
   Dimensions,
 } from "react-native";
+import { useDispatch } from "react-redux";
+import { authSignUpUser } from "../../redux/auth/authOperations";
 
 const initialState = {
   email: "",
@@ -22,10 +24,12 @@ export default function RegistrationScreen({ navigation }) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setstate] = useState(initialState);
 
-  const keyboardHide = () => {
+  const dispatch = useDispatch();
+
+  const handleSubmit = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
-    console.log(state);
+    dispatch(authSignUpUser(state));
     setstate(initialState);
   };
 
@@ -46,7 +50,7 @@ export default function RegistrationScreen({ navigation }) {
   }, []);
 
   return (
-    <TouchableWithoutFeedback onPress={keyboardHide}>
+    <TouchableWithoutFeedback onPress={handleSubmit}>
       <View style={styles.container}>
         <ImageBackground
           style={styles.image}
@@ -58,7 +62,7 @@ export default function RegistrationScreen({ navigation }) {
             <View
               style={{
                 ...styles.form,
-                marginBottom: isShowKeyboard ? -170 : 0,
+                marginBottom: isShowKeyboard ? -105 : 0,
                 width: dimensions,
               }}
             >
@@ -72,7 +76,7 @@ export default function RegistrationScreen({ navigation }) {
                   placeholderTextColor="#BDBDBD"
                   textAlign={"center"}
                   onFocus={() => setIsShowKeyboard(true)}
-                  value={state.email}
+                  value={state.nickname}
                   onChangeText={(value) =>
                     setstate((prevState) => ({ ...prevState, nickname: value }))
                   }
@@ -101,14 +105,14 @@ export default function RegistrationScreen({ navigation }) {
                   onFocus={() => setIsShowKeyboard(true)}
                   value={state.password}
                   onChangeText={(value) =>
-                    setstate((prevState) => ({ ...prevState, email: value }))
+                    setstate((prevState) => ({ ...prevState, password: value }))
                   }
                 />
               </View>
               <TouchableOpacity
                 activeOpacity={0.8}
                 style={styles.btn}
-                onPress={keyboardHide}
+                onPress={handleSubmit}
               >
                 <Text style={styles.btnTitle}>Зарегистрироваться</Text>
               </TouchableOpacity>
@@ -148,7 +152,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 6,
     backgroundColor: "#F6F6F6",
-    color: "#f0f8ff",
+    color: "blue",
   },
   form: {
     backgroundColor: "#fff",

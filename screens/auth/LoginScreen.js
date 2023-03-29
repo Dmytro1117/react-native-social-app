@@ -24,7 +24,7 @@ export default function LoginScreen({ navigation }) {
   const keyboardHide = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
-    console.log(state);
+    // console.log(state);
     setstate(initialState);
   };
 
@@ -57,7 +57,7 @@ export default function LoginScreen({ navigation }) {
             <View
               style={{
                 ...styles.form,
-                marginBottom: isShowKeyboard ? -210 : 0,
+                marginBottom: isShowKeyboard ? -150 : 0,
                 width: dimensions,
               }}
             >
@@ -87,7 +87,7 @@ export default function LoginScreen({ navigation }) {
                   onFocus={() => setIsShowKeyboard(true)}
                   value={state.password}
                   onChangeText={(value) =>
-                    setstate((prevState) => ({ ...prevState, email: value }))
+                    setstate((prevState) => ({ ...prevState, password: value }))
                   }
                 />
               </View>
@@ -108,7 +108,6 @@ export default function LoginScreen({ navigation }) {
                 <Text style={{ fontSize: 16, color: "#1B4371" }}>
                   Нет аккаунта?
                   <Text style={{ fontSize: 16, color: "#1B4371" }}>
-                    {" "}
                     Зарегистрироваться
                   </Text>
                 </Text>
@@ -137,7 +136,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 6,
     backgroundColor: "#F6F6F6",
-    color: "#f0f8ff",
+    color: "#212121",
   },
   form: {
     backgroundColor: "#fff",
@@ -159,7 +158,7 @@ const styles = StyleSheet.create({
   btnTitle: {
     color: Platform.OS === "ios" ? "#4169e1" : "#f0f8ff",
     fontSize: 18,
-    fontFamily: "Gloock-Regular",
+    fontFamily: "TiltPrism-Regular",
   },
   header: {
     alignItems: "center",
@@ -167,7 +166,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 30,
-    fontFamily: "Gloock-Regular",
+    fontFamily: "TiltPrism-Regular",
     marginTop: 16,
   },
 });
