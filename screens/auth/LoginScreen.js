@@ -1,173 +1,226 @@
-import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
-  ImageBackground,
   TextInput,
-  TouchableOpacity,
-  Platform,
   KeyboardAvoidingView,
-  Keyboard,
+  Platform,
   TouchableWithoutFeedback,
-  Dimensions,
+  Keyboard,
+  ImageBackground,
+  Pressable,
+  TouchableOpacity,
 } from "react-native";
+import React, { useState } from "react";
 
-const initialState = {
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useTogglePasswordVisibility } from "../../hooks/passwordVisibility";
+
+import { authSignInUser } from "../../redux/auth/authOperations";
+import { useDispatch } from "react-redux";
+
+const initialFormState = {
   email: "",
   password: "",
 };
-export default function LoginScreen({ navigation }) {
-  const [isShowKeyboard, setIsShowKeyboard] = useState(false);
-  const [state, setstate] = useState(initialState);
 
-  const keyboardHide = () => {
-    setIsShowKeyboard(false);
+export default function LoginScreen({ navigation }) {
+  const [formState, setFormState] = useState(initialFormState);
+  const dispatch = useDispatch();
+
+  const handleFormSubmit = () => {
     Keyboard.dismiss();
-    console.log(state);
-    setstate(initialState);
+    dispatch(authSignInUser(formState));
+    setFormState(initialFormState);
   };
 
-  const [dimensions, setdimensions] = useState(
-    Dimensions.get("window").width - 0 * 2
-  );
-
-  useEffect(() => {
-    const onChange = () => {
-      const width = Dimensions.get("window").width - 0 * 2;
-
-      setdimensions(width);
-    };
-    Dimensions.addEventListener("change", onChange);
-    return () => {
-      Dimensions.removeEventListener("change", onChange);
-    };
-  }, []);
+  const { passwordVisibility, rightIcon, handlePasswordVisibility } =
+    useTogglePasswordVisibility();
 
   return (
-    <TouchableWithoutFeedback onPress={keyboardHide}>
+    <>
       <View style={styles.container}>
-        <ImageBackground
-          style={styles.image}
-          source={require("../../assets/images/bgimage.jpg")}
-        >
-          <KeyboardAvoidingView
-            behavior={Platform.OS == "ios" ? "padding" : null}
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+          <ImageBackground
+            style={styles.image}
+            source={require("../../assets/images/bgimage.jpg")}
           >
-            <View
-              style={{
-                ...styles.form,
-                marginBottom: isShowKeyboard ? -210 : 0,
-                width: dimensions,
-              }}
+            <KeyboardAvoidingView
+              behavior={Platform.OS === "ios" ? "padding" : null}
             >
-              <View style={styles.header}>
-                <Text style={styles.headerTitle}>Войти</Text>
-              </View>
-              <View>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Адрес электронной почты"
-                  placeholderTextColor="#BDBDBD"
-                  textAlign={"center"}
-                  onFocus={() => setIsShowKeyboard(true)}
-                  value={state.email}
-                  onChangeText={(value) =>
-                    setstate((prevState) => ({ ...prevState, email: value }))
-                  }
-                />
-              </View>
-              <View style={{ marginTop: 16 }}>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Пароль"
-                  placeholderTextColor="#BDBDBD"
-                  textAlign={"center"}
-                  secureTextEntry={true}
-                  onFocus={() => setIsShowKeyboard(true)}
-                  value={state.password}
-                  onChangeText={(value) =>
-                    setstate((prevState) => ({ ...prevState, email: value }))
-                  }
-                />
-              </View>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                style={styles.btn}
-                onPress={keyboardHide}
-              >
-                <Text style={styles.btnTitle}>Войти</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => navigation.navigate("Register")}
-                style={{
-                  marginTop: 20,
-                  alignSelf: "center",
-                }}
-              >
-                <Text style={{ fontSize: 16, color: "#1B4371" }}>
-                  Нет аккаунта?
-                  <Text style={{ fontSize: 16, color: "#1B4371" }}>
-                    {" "}
-                    Зарегистрироваться
+              <View style={styles.form}>
+                <Text style={styles.title}>Войти</Text>
+                <View>
+                  <TextInput
+                    style={{ ...styles.input, marginBottom: 15 }}
+                    placeholder="Адрес электронной почты"
+                    placeholderTextColor="#BDBDBD"
+                    name="email"
+                    value={formState.email}
+                    onChangeText={(value) =>
+                      setFormState((prevState) => ({
+                        ...prevState,
+                        email: value,
+                      }))
+                    }
+                  />
+                  <View style={styles.passwordContainer}>
+                    <TextInput
+                      style={{
+                        ...styles.input,
+                        marginBottom: 30,
+                        flex: 1,
+                        paddingRight: 35,
+                      }}
+                      placeholder="Пароль"
+                      placeholderTextColor="#BDBDBD"
+                      secureTextEntry={passwordVisibility}
+                      name="password"
+                      value={formState.password}
+                      onChangeText={(value) =>
+                        setFormState((prevState) => ({
+                          ...prevState,
+                          password: value,
+                        }))
+                      }
+                    />
+                    <Pressable
+                      onPress={handlePasswordVisibility}
+                      style={styles.inputIconShowPassword}
+                    >
+                      <MaterialCommunityIcons
+                        name={rightIcon}
+                        size={26}
+                        color="#232323"
+                      />
+                    </Pressable>
+                  </View>
+                </View>
+
+                {formState.email && formState.password ? (
+                  <TouchableOpacity
+                    style={styles.button}
+                    activeOpacity={0.7}
+                    onPress={() => handleFormSubmit()}
+                  >
+                    <Text style={styles.button.title}>Войти</Text>
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity
+                    style={{ ...styles.button, backgroundColor: "#F6F6F6" }}
+                    activeOpacity={0.7}
+                    onPress={() => handleFormSubmit()}
+                    disabled={true}
+                  >
+                    <Text style={{ ...styles.button.title, color: "#BDBDBD" }}>
+                      Войти
+                    </Text>
+                  </TouchableOpacity>
+                )}
+
+                <TouchableOpacity
+                  style={styles.btnText}
+                  activeOpacity={0.7}
+                  onPress={() => navigation.navigate("Registration")}
+                >
+                  <Text style={{ ...styles.btnText.text, marginTop: 15 }}>
+                    Нет аккаунта? Зарегистрироваться
                   </Text>
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </KeyboardAvoidingView>
-        </ImageBackground>
+                </TouchableOpacity>
+              </View>
+            </KeyboardAvoidingView>
+          </ImageBackground>
+        </TouchableWithoutFeedback>
       </View>
-    </TouchableWithoutFeedback>
+    </>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   image: {
     flex: 1,
-    resizeMode: "cover",
     justifyContent: "flex-end",
-    alignItems: "center",
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#E8E8E8",
-    height: 50,
-    borderRadius: 6,
-    backgroundColor: "#F6F6F6",
-    color: "#f0f8ff",
   },
   form: {
     backgroundColor: "#fff",
-    height: 489,
+    height: 450,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    padding: 16,
+
+    padding: 20,
   },
-  btn: {
+  title: {
+    width: 184,
+    height: 35,
+    fontFamily: "Roboto-Medium",
+    fontStyle: "normal",
+    fontWeight: "500",
+    letterSpacing: 0.16,
+    fontSize: 30,
+    lineHeight: 35,
+    textAlign: "center",
+    color: "#212121",
+    marginTop: 32,
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom: 32,
+  },
+  input: {
+    fontFamily: "Roboto-Regular",
+    fontStyle: "normal",
+    fontWeight: "400",
+    lineHeight: 19,
+    fontSize: 16,
+    borderWidth: 1,
+    borderColor: "#E8E8E8",
+    borderRadius: 10,
+    padding: 16,
+    backgroundColor: "#F6F6F6",
+  },
+
+  passwordContainer: {
+    flexDirection: "row",
+    borderColor: "#000",
+    paddingBottom: 10,
+  },
+  inputIconShowPassword: {
+    position: "absolute",
+    flexDirection: "row",
+    top: 17,
+    right: 15,
+  },
+
+  button: {
     justifyContent: "center",
     alignItems: "center",
+
     paddingBottom: 16,
     paddingTop: 16,
     borderRadius: 100,
     backgroundColor: "#FF6C00",
-    marginTop: 40,
-    // marginBottom: 195,
+
+    title: {
+      fontFamily: "Roboto-Regular",
+      fontStyle: "normal",
+      fontWeight: "400",
+      color: "#FFFFFF",
+      fontSize: 16,
+      lineHeight: 19,
+    },
   },
-  btnTitle: {
-    color: Platform.OS === "ios" ? "#4169e1" : "#f0f8ff",
-    fontSize: 18,
-    fontFamily: "Gloock-Regular",
-  },
-  header: {
-    alignItems: "center",
-    marginBottom: 33,
-  },
-  headerTitle: {
-    fontSize: 30,
-    fontFamily: "Gloock-Regular",
-    marginTop: 16,
+  btnText: {
+    marginLeft: "auto",
+    marginRight: "auto",
+
+    text: {
+      fontFamily: "Roboto-Regular",
+      fontStyle: "normal",
+      fontWeight: "400",
+      fontSize: 16,
+      lineHeight: 19,
+      color: "#1B4371",
+    },
   },
 });

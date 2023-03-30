@@ -1,73 +1,122 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import LoginScreen from "./screens/auth/LoginScreen";
 import RegistrationScreen from "./screens/auth/RegistrationScreen";
 import PostsScreen from "./screens/mainScreen/PostsScreen";
-import CreateScreen from "./screens/mainScreen/CreateScreen";
+import CreatePostsScreen from "./screens/mainScreen/CreatePostsScreen";
 import ProfileScreen from "./screens/mainScreen/ProfileScreen";
-import { Feather, AntDesign } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import { View } from "react-native";
-const AuthStack = createStackNavigator();
-const MainTab = createMaterialBottomTabNavigator();
 
-export const useRoute = (isAuth) => {
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
+
+const AuthStack = createStackNavigator();
+const MainTab = createBottomTabNavigator();
+
+export default function useRoute(isAuth) {
   if (!isAuth) {
     return (
       <AuthStack.Navigator>
         <AuthStack.Screen
-          options={{
-            headerShown: false,
-          }}
           name="Login"
           component={LoginScreen}
+          options={{ headerShown: false }}
         />
         <AuthStack.Screen
-          options={{
-            headerShown: false,
-          }}
-          name="Register"
+          name="Registration"
           component={RegistrationScreen}
+          options={{ headerShown: false }}
         />
       </AuthStack.Navigator>
     );
   }
   return (
     <MainTab.Navigator
-      labeled={false}
-      barStyle={{ backgroundColor: "#FFFFFF", height: 83 }}
+      screenOptions={{
+        headerTitleAlign: "center",
+        headerTitleStyle: {
+          fontFamily: "Roboto-Medium",
+          fontSize: 17,
+          fontWeight: "500",
+          color: "#121212",
+        },
+        headerStyle: {},
+        tabBarShowLabel: false,
+        tabBarStyle: {
+          backgroundColor: "#ffffff",
+          height: 70,
+          paddingBottom: 10,
+          borderTopColor: "#B3B3B3",
+        },
+      }}
+      barStyle={{ backgroundColor: "#694fad" }}
     >
       <MainTab.Screen
-        options={{
-          tabBarIcon: ({ focused, size, color }) => (
-            <Feather name="grid" size={24} color="#616161" />
-          ),
-        }}
-        name="Posts"
+        name="PostsScreen"
         component={PostsScreen}
+        options={({ route }) => ({
+          tabBarStyle: ((route) => {
+            const routeName = getFocusedRouteNameFromRoute(route) ?? "";
+            if (routeName === "CommentsScreen" || routeName === "MapScreen") {
+              return { display: "none" };
+            }
+            return { height: 70, paddingBottom: 10 };
+          })(route),
+
+          headerShown: false,
+          tabBarIcon: (focused, size, color) => (
+            <View
+              style={{
+                marginLeft: 80,
+              }}
+            >
+              <Feather name="grid" size={24} color="#616161" />
+            </View>
+          ),
+        })}
       />
 
       <MainTab.Screen
+        name="CreatePostsScreen"
+        component={CreatePostsScreen}
         options={{
           headerShown: false,
           tabBarStyle: { display: "none" },
           tabBarIcon: (focused, size, color) => (
-            <AntDesign name="plus" size={18} color="#fff" />
+            <View
+              style={{
+                backgroundColor: "orange",
+                borderRadius: 20,
+                width: 70,
+                height: 40,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <AntDesign name="plus" size={18} color="#fff" />
+            </View>
           ),
         }}
-        name="Create"
-        component={CreateScreen}
       />
+
       <MainTab.Screen
         name="ProfileScreen"
         component={ProfileScreen}
         options={{
-          tabBarStyle: { display: "none" },
+          headerShown: false,
           tabBarIcon: (focused, size, color) => (
-            <AntDesign name="user" size={24} color="#616161" />
+            <View
+              style={{
+                marginRight: 80,
+              }}
+            >
+              <AntDesign name="user" size={24} color="#616161" />
+            </View>
           ),
         }}
       />
     </MainTab.Navigator>
   );
-};
+}
