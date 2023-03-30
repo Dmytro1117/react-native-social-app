@@ -69,7 +69,7 @@ export default function useRoute(isAuth) {
           tabBarIcon: (focused, size, color) => (
             <View
               style={{
-                marginLeft: 100,
+                marginLeft: 80,
               }}
             >
               <Feather name="grid" size={24} color="#616161" />
@@ -109,7 +109,7 @@ export default function useRoute(isAuth) {
           tabBarIcon: (focused, size, color) => (
             <View
               style={{
-                marginRight: 100,
+                marginRight: 80,
               }}
             >
               <AntDesign name="user" size={24} color="#616161" />
