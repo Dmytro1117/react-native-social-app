@@ -16,29 +16,43 @@ export default function DefaultPostsScreen({ navigation }) {
   const [userPosts, setUserPosts] = useState([]);
 
   useEffect(() => {
-    getAllPost();
+    getUserPost();
   }, []);
 
-  const getAllPost = async () => {
+  const getUserPost = async () => {
     const queryUserPost = query(
       collection(db, "userPost"),
       where("userId", "==", userId)
     );
 
-    await onSnapshot(queryUserPost, (allUserPosts) => {
+    await onSnapshot(queryUserPost, (docUserPosts) => {
       const posts = [];
-      allUserPosts.forEach((doc) => {
+      docUserPosts.forEach((doc) => {
         posts.push({ ...doc.data(), id: doc.id });
       });
       setUserPosts(posts);
-
-      // await onSnapshot(collection(db, "userPost"), (allUserPosts) => {
-      //   const posts = [];
-      //   allUserPosts.forEach((doc) => {
-      //     posts.push({ ...doc.data(), id: doc.id });
-      //   });
-      //   setUserPosts(posts);
     });
+
+    // const getAllPost = async () => {
+    //   const queryUserPost = query(
+    //     collection(db, "userPost"),
+    //     where("userId", "==", userId)
+    //   );
+
+    //   await onSnapshot(queryUserPost, (allUserPosts) => {
+    //     const posts = [];
+    //     allUserPosts.forEach((doc) => {
+    //       posts.push({ ...doc.data(), id: doc.id });
+    //     });
+    //     setUserPosts(posts);
+
+    //     await onSnapshot(collection(db, "userPost"), (allUserPosts) => {
+    //       const posts = [];
+    //       allUserPosts.forEach((doc) => {
+    //         posts.push({ ...doc.data(), id: doc.id });
+    //       });
+    //       setUserPosts(posts);
+    //   });
   };
 
   return (
