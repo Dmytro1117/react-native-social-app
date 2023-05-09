@@ -20,12 +20,24 @@ export default function DefaultPostsScreen({ navigation }) {
   }, []);
 
   const getAllPost = async () => {
-    await onSnapshot(collection(db, "userPost"), (allUserPosts) => {
+    const queryUserPost = query(
+      collection(db, "userPost"),
+      where("userId", "==", userId)
+    );
+
+    await onSnapshot(queryUserPost, (allUserPosts) => {
       const posts = [];
       allUserPosts.forEach((doc) => {
         posts.push({ ...doc.data(), id: doc.id });
       });
       setUserPosts(posts);
+
+      // await onSnapshot(collection(db, "userPost"), (allUserPosts) => {
+      //   const posts = [];
+      //   allUserPosts.forEach((doc) => {
+      //     posts.push({ ...doc.data(), id: doc.id });
+      //   });
+      //   setUserPosts(posts);
     });
   };
 
