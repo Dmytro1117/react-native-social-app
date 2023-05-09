@@ -7,12 +7,15 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
+import { onSnapshot, collection, query, where } from "firebase/firestore";
+import { useSelector } from "react-redux";
 
-import { onSnapshot, collection } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import Loader from "../../components/Loader";
+import { selectUserId } from "../../redux/auth/authSelectors";
 
 export default function DefaultPostsScreen({ navigation }) {
+  const userId = useSelector(selectUserId);
   const [userPosts, setUserPosts] = useState([]);
 
   useEffect(() => {
@@ -25,19 +28,12 @@ export default function DefaultPostsScreen({ navigation }) {
       where("userId", "==", userId)
     );
 
-    await onSnapshot(queryUserPost, (allUserPosts) => {
+    await onSnapshot(queryUserPost, (docUserPosts) => {
       const posts = [];
-      allUserPosts.forEach((doc) => {
+      docUserPosts.forEach((doc) => {
         posts.push({ ...doc.data(), id: doc.id });
       });
       setUserPosts(posts);
-
-      // await onSnapshot(collection(db, "userPost"), (allUserPosts) => {
-      //   const posts = [];
-      //   allUserPosts.forEach((doc) => {
-      //     posts.push({ ...doc.data(), id: doc.id });
-      //   });
-      //   setUserPosts(posts);
     });
   };
 
